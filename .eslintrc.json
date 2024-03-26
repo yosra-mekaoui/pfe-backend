@@ -1,0 +1,61 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "plugins": ["jest"],
+  "extends": ["eslint:recommended", "plugin:jest/recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "error",
+    "semi": "off",
+    "no-undef": "off",
+    "no-unused-vars": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "no-var": "error",
+    "no-dupe-else-if": "error",
+    "no-dupe-keys": "error",
+    "no-duplicate-imports": "error",
+    "no-irregular-whitespace": "error",
+    "no-unreachable": "error",
+    "no-use-before-define": "error",
+    "arrow-body-style": "error",
+    "block-scoped-var": "error",
+    "curly": "error",
+    "eqeqeq": "error",
+    "no-empty": "error",
+    "no-empty-function": "error",
+    "no-extra-semi": "error",
+    "no-inline-comments": "error",
+    "no-lone-blocks": "error",
+    "no-shadow": "error",
+    "no-useless-catch": "error",
+    "prefer-const": "error",
+    "require-await": "error",
+    "sort-imports": "error",
+    "array-bracket-spacing": "error",
+    "array-bracket-newline": "error",
+    "arrow-spacing": "error",
+    "block-spacing": "error",
+    "brace-style": "error",
+    "comma-dangle": ["error", "never"],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "key-spacing": ["error", { "mode": "strict" }],
+    "no-multi-spaces": "error",
+    "keyword-spacing": "error",
+    "no-trailing-spaces": "error",
+    "object-curly-newline": "error"
+  },
+  "overrides": [
+    {
+      "files": ["*.test*.js"],
+      "rules": {
+        "jest/valid-expect": 0
+      }
+    }
+  ]
+}
