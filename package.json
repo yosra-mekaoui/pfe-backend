@@ -12,8 +12,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write ./src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install",
-    "prepush": "npm run lint && npm run format"
+    "prepare": "husky install"
 
     
   },
