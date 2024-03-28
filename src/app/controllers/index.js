@@ -1,3 +1,3 @@
-import { default as tests } from './test';
+import { default as v1Routes } from './api';
 
-export { tests };
+export { v1Routes };

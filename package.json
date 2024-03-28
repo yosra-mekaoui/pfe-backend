@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel ./src --out-dir ./dist",
     "start": "node dist/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon --config ./nodemon.json --exec babel-node src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/server.js",
     "debug": "npm run dev -- --inspect",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

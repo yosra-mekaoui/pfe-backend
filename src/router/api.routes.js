@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import runAsyncWrapper from '../utils/runAsyncWrapper';
-import { tests } from '../controllers';
+import {v1Routes} from '../app/controllers';
 
 const apiRoutes = Router();
 
-apiRoutes.get('/', runAsyncWrapper(tests.welcome));
+apiRoutes.get('/', (v1Routes.hello));
+
 export default apiRoutes;

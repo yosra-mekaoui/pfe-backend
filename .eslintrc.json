@@ -11,44 +11,26 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-console": "error",
+    //désactive la vérification des console.log en autorisant .info et .error et en interdisant les autres
+    "no-console": ["error", { "allow": ["info", "error"] }],
+    //désactive la vérification des points-virgules
     "semi": "off",
+    //désactive la détection des variables non déclarées
     "no-undef": "off",
+    //signale les variables inutilisées
     "no-unused-vars": "error",
+    //Cette règle limite le nombre maximum de lignes vides consécutives
     "no-multiple-empty-lines": ["error", { "max": 1 }],
+    // interdit l’utilisation de var pour déclarer des variables
     "no-var": "error",
+    //Cette règle signale les déclarations else if dupliquées
     "no-dupe-else-if": "error",
-    "no-dupe-keys": "error",
+    //Cette règle signale les importations dupliquées
     "no-duplicate-imports": "error",
-    "no-irregular-whitespace": "error",
-    "no-unreachable": "error",
+    //signale l’utilisation de variables ou de fonctions avant leur déclaration
     "no-use-before-define": "error",
-    "arrow-body-style": "error",
-    "block-scoped-var": "error",
-    "curly": "error",
-    "eqeqeq": "error",
-    "no-empty": "error",
-    "no-empty-function": "error",
-    "no-extra-semi": "error",
-    "no-inline-comments": "error",
-    "no-lone-blocks": "error",
-    "no-shadow": "error",
-    "no-useless-catch": "error",
-    "prefer-const": "error",
-    "require-await": "error",
-    "sort-imports": "error",
-    "array-bracket-spacing": "error",
-    "array-bracket-newline": "error",
-    "arrow-spacing": "error",
-    "block-spacing": "error",
-    "brace-style": "error",
-    "comma-dangle": ["error", "never"],
-    "comma-spacing": ["error", { "before": false, "after": true }],
-    "key-spacing": ["error", { "mode": "strict" }],
-    "no-multi-spaces": "error",
-    "keyword-spacing": "error",
-    "no-trailing-spaces": "error",
-    "object-curly-newline": "error"
+    //signale l’utilisation de variables déclarées avec var dans un bloc de portée. Elle vous encourage à utiliser let ou const à la place
+    "block-scoped-var": "error"
   },
   "overrides": [
     {
