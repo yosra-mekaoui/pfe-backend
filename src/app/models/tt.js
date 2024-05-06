@@ -7,10 +7,10 @@ const ttSchema = new Schema({
     type: Date,
     required: true,
   },
-    EndDate: {
-        type: Date,
-        required: true,
-    },
+  EndDate: {
+    type: Date,
+    required: true,
+  },
 });
 
 const Tt = mongoose.model('Tt', ttSchema);
