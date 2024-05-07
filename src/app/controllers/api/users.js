@@ -12,9 +12,7 @@ const getUsers = async (req, res) => {
 //get user by id
 const getUserById = async (req, res) => {
   const { id } = req.params;
-  const user = await UserModel
-    .findById(id)
-    .select('firstName lastName email');
+  const user = await UserModel.findById(id).select('firstName lastName email');
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
@@ -73,4 +71,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { createUser, getUsers, updateUser, deleteUser , getUserById};
+export { createUser, getUsers, updateUser, deleteUser, getUserById };
