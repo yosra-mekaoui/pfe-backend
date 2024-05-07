@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
-
-const { Schema } = mongoose;
+import mongoose, { Schema } from 'mongoose';
 
 const tacheSchema = new Schema({
   Title: {
