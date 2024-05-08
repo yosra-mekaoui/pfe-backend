@@ -1,4 +1,8 @@
 const userValidations = require('./user.validations');
+const congeValidations = require('./conge.validations');
+const projectValidations = require('./project.validations');
+const tacheValidations = require('./tache.validations');
+const teletravailValidations = require('./teletravail.validation');
 
 const isRequired = (singleError) => {
   return singleError.includes('required');
@@ -34,7 +38,24 @@ const getRequestErrors = (schema) => {
 };
 
 module.exports = {
+  //user
   createUsersValidations: getRequestErrors(userValidations.createUserValidations),
   getUserByIdValidations: getRequestErrors(userValidations.getUserByIdValidations),
   updateUserValidations: getRequestErrors(userValidations.updateUserValidations),
+  //conge
+  createCongeValidations: getRequestErrors(congeValidations.createCongeValidations),
+  getCongeByIdValidations: getRequestErrors(congeValidations.getCongeByIdValidations),
+  updateCongeValidations: getRequestErrors(congeValidations.updateCongeValidations),
+  // project
+  createProjectValidations: getRequestErrors(projectValidations.createProjectValidations),
+  getProjectByIdValidations: getRequestErrors(projectValidations.getProjectByIdValidations),
+  updateProjectValidations: getRequestErrors(projectValidations.updateProjectValidations),
+  //tache
+  createTacheValidations: getRequestErrors(tacheValidations.createTacheValidations),
+  getTacheByIdValidations: getRequestErrors(tacheValidations.getTacheByIdValidations),
+  updateTacheValidations: getRequestErrors(tacheValidations.updateTacheValidations),
+  //teletravail
+  createTeletravailValidations: getRequestErrors(teletravailValidations.createTeletravailValidations),
+  getTeletravailByIdValidations: getRequestErrors(teletravailValidations.getTeletravailByIdValidations),
+  updateTeletravailValidations: getRequestErrors(teletravailValidations.updateTeletravailValidations),
 };

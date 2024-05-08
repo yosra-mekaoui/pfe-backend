@@ -11,7 +11,6 @@ const tacheSchema = new Schema({
   },
   CreationDate: {
     type: Date,
-    required: true,
   },
   Deadline: {
     type: Date,
@@ -22,7 +21,7 @@ const tacheSchema = new Schema({
     required: true,
   },
   Priority: {
-    type: String,
+    type: Number,
     required: true,
   },
 });

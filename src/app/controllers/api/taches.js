@@ -20,12 +20,14 @@ const getTacheById = async (req, res) => {
   return res.status(200).json(tache);
 };
 const createTache = async (req, res) => {
-  const { Title, Description, CreationDate, Deadline, Status, Prority } = req.body;
-  if (!Title || !Description || !CreationDate || !Deadline || !Status || !Prority) {
+  const { Title, Description, Deadline, Status, Priority } = req.body;
+  const CreationDate = new Date(); // Définit automatiquement la date actuelle
+
+  if (!Title || !Description || !Deadline || !Status || !Priority) {
     return res.status(400).json({ message: 'All fields are required' });
   }
   try {
-    const result = await TacheModel.create({ Title, Description, CreationDate, Deadline, Status, Prority });
+    const result = await TacheModel.create({ Title, Description, CreationDate, Deadline, Status, Priority });
     return res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -33,7 +35,7 @@ const createTache = async (req, res) => {
   }
 };
 const updateTache = async (req, res) => {
-  const { Title, Description, CreationDate, Deadline, Status, Prority } = req.body;
+  const { Title, Description, Deadline, Status, Priority } = req.body;
   const { id } = req.params;
   const tache = await TacheModel.findById(id);
   if (!tache) {
@@ -45,17 +47,14 @@ const updateTache = async (req, res) => {
   if (Description) {
     tache.Description = Description;
   }
-  if (CreationDate) {
-    tache.CreationDate = CreationDate;
-  }
   if (Deadline) {
     tache.Deadline = Deadline;
   }
   if (Status) {
     tache.Status = Status;
   }
-  if (Prority) {
-    tache.Prority = Prority;
+  if (Priority) {
+    tache.Priority = Priority;
   }
   try {
     const result = await tache.save();
