@@ -9,6 +9,10 @@ const teletravailSchema = new Schema({
     type: Date,
     required: true,
   },
+  Status: {
+    type: String,
+    required: true,
+  },
 });
 
 const Teletravail = mongoose.model('Teletravail', teletravailSchema);
