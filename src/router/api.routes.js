@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { v1Routes } from '../app/controllers';
 
-const validations = require('../app/middlewares/index');
+const validations = require('../app/validations/index');
 
 const apiRoutes = Router();
 //user
@@ -12,22 +12,22 @@ apiRoutes.put('/users/:id', [validations.updateUserValidations], v1Routes.users.
 apiRoutes.delete('/users/:id', [validations.getUserByIdValidations], v1Routes.users.deleteUser);
 //role
 apiRoutes.get('/roles', v1Routes.roles.getRoles);
-apiRoutes.get('/roles/:id', v1Routes.roles.getRoleById);
-apiRoutes.post('/roles', v1Routes.roles.createRole);
-apiRoutes.put('/roles/:id', v1Routes.roles.updateRole);
-apiRoutes.delete('/roles/:id', v1Routes.roles.deleteRole);
+apiRoutes.get('/roles/:id', [validations.getRoleByIdValidations], v1Routes.roles.getRoleById);
+apiRoutes.post('/roles', [validations.createRoleValidations], v1Routes.roles.createRole);
+apiRoutes.put('/roles/:id', [validations.updateRoleValidations], v1Routes.roles.updateRole);
+apiRoutes.delete('/roles/:id', [validations.getRoleByIdValidations], v1Routes.roles.deleteRole);
 //annonce
 apiRoutes.get('/annonces', v1Routes.annonces.getAnnonces);
-apiRoutes.get('/annonces/:id', v1Routes.annonces.getAnnonceById);
-apiRoutes.post('/annonces', v1Routes.annonces.createAnnonce);
-apiRoutes.put('/annonces/:id', v1Routes.annonces.updateAnnonce);
-apiRoutes.delete('/annonces/:id', v1Routes.annonces.deleteAnnonce);
+apiRoutes.get('/annonces/:id', [validations.getAnnonceByIdValidations], v1Routes.annonces.getAnnonceById);
+apiRoutes.post('/annonces', [validations.createAnnonceValidations], v1Routes.annonces.createAnnonce);
+apiRoutes.put('/annonces/:id', [validations.updateAnnonceValidations], v1Routes.annonces.updateAnnonce);
+apiRoutes.delete('/annonces/:id', [validations.getAnnonceByIdValidations], v1Routes.annonces.deleteAnnonce);
 //doc
 apiRoutes.get('/docs', v1Routes.docs.getDocs);
-apiRoutes.get('/docs/:id', v1Routes.docs.getDocById);
-apiRoutes.post('/docs', v1Routes.docs.createDoc);
-apiRoutes.put('/docs/:id', v1Routes.docs.updateDoc);
-apiRoutes.delete('/docs/:id', v1Routes.docs.deleteDoc);
+apiRoutes.get('/docs/:id', [validations.getDocByIdValidations], v1Routes.docs.getDocById);
+apiRoutes.post('/docs', [validations.createDocValidations], v1Routes.docs.createDoc);
+apiRoutes.put('/docs/:id', [validations.updateDocValidations], v1Routes.docs.updateDoc);
+apiRoutes.delete('/docs/:id', [validations.getDocByIdValidations], v1Routes.docs.deleteDoc);
 //conge
 apiRoutes.get('/conges', v1Routes.conges.getConges);
 apiRoutes.get('/conges/:id', [validations.getCongeByIdValidations], v1Routes.conges.getCongeById);

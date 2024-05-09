@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const teamSchema = new Schema({
-  Nam: {
+  Name: {
     type: String,
     required: true,
   },
