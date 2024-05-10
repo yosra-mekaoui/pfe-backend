@@ -1,9 +1,16 @@
 import { Router } from 'express';
 import { v1Routes } from '../app/controllers';
+import upload from '../app/middlewares/upload';
+// import { createDocValidations } from '../app/validations';
 
 const validations = require('../app/validations/index');
 
 const apiRoutes = Router();
+
+// Set up a route for file uploads
+apiRoutes.post('/upload', upload.single('file'), (req, res) => {
+  res.json({ message: 'File uploaded successfully!' });
+});
 //user
 apiRoutes.get('/users', v1Routes.users.getUsers);
 apiRoutes.get('/users/:id', [validations.getUserByIdValidations], v1Routes.users.getUserById);
@@ -24,6 +31,7 @@ apiRoutes.put('/annonces/:id', [validations.updateAnnonceValidations], v1Routes.
 apiRoutes.delete('/annonces/:id', [validations.getAnnonceByIdValidations], v1Routes.annonces.deleteAnnonce);
 //doc
 apiRoutes.get('/docs', v1Routes.docs.getDocs);
+//apiRoutes.post('/docs', upload.single('file'), createDocValidations, v1Routes.docs.createDoc);
 apiRoutes.get('/docs/:id', [validations.getDocByIdValidations], v1Routes.docs.getDocById);
 apiRoutes.post('/docs', [validations.createDocValidations], v1Routes.docs.createDoc);
 apiRoutes.put('/docs/:id', [validations.updateDocValidations], v1Routes.docs.updateDoc);
