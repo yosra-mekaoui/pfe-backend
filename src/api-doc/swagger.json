@@ -1,0 +1,1108 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API RH application",
+    "description": "Documentation de votre API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local server"
+    }
+  ],
+  "apis": ["./router/api.routes.js"],
+  "paths": {
+    "/api/users": {
+      "get": {
+        "summary": "Obtenir tous les utilisateurs",
+        "description": "Renvoie une liste de tous les utilisateurs",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouvel utilisateur",
+        "description": "Crée un nouvel utilisateur",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Nouvel utilisateur à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur créé avec succès"
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "summary": "Obtenir un utilisateur par ID",
+        "description": "Récupère un utilisateur en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'utilisateur à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un utilisateur",
+        "description": "Met à jour un utilisateur existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'utilisateur à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Données mises à jour de l'utilisateur",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur mis à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un utilisateur",
+        "description": "Supprime un utilisateur existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'utilisateur à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur supprimé avec succès"
+          }
+        }
+      }
+    },
+    "/api/roles": {
+      "get": {
+        "summary": "Obtenir tous les rôles",
+        "description": "Renvoie une liste de tous les rôles",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Role"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau rôle",
+        "description": "Crée un nouveau rôle",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "body",
+            "description": "Nouveau rôle à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rôle créé avec succès"
+          }
+        }
+      }
+    },
+    "/api/roles/{id}": {
+      "get": {
+        "summary": "Obtenir un rôle par ID",
+        "description": "Récupère un rôle en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du rôle à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un rôle",
+        "description": "Met à jour un rôle existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du rôle à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "body",
+            "description": "Données mises à jour du rôle",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rôle mis à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un rôle",
+        "description": "Supprime un rôle existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du rôle à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rôle supprimé avec succès"
+          }
+        }
+      }
+    },
+    "/api/annonces": {
+      "get": {
+        "summary": "Obtenir toutes les annonces",
+        "description": "Renvoie une liste de toutes les annonces",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Annonce"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer une nouvelle annonce",
+        "description": "Crée une nouvelle annonce",
+        "parameters": [
+          {
+            "name": "annonce",
+            "in": "body",
+            "description": "Nouvelle annonce à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Annonce"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Annonce créée avec succès"
+          }
+        }
+      }
+    },
+    "/api/annonces/{id}": {
+      "get": {
+        "summary": "Obtenir une annonce par ID",
+        "description": "Récupère une annonce en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'annonce à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Annonce"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour une annonce",
+        "description": "Met à jour une annonce existante en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'annonce à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "annonce",
+            "in": "body",
+            "description": "Données mises à jour de l'annonce",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Annonce"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Annonce mise à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer une annonce",
+        "description": "Supprime une annonce existante en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'annonce à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Annonce supprimée avec succès"
+          }
+        }
+      }
+    },
+    "/api/conges": {
+      "get": {
+        "summary": "Obtenir tous les congés",
+        "description": "Renvoie une liste de tous les congés",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Conge"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau congé",
+        "description": "Crée un nouveau congé",
+        "parameters": [
+          {
+            "name": "conge",
+            "in": "body",
+            "description": "Nouveau congé à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Conge"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Congé créé avec succès"
+          }
+        }
+      }
+    },
+    "/api/conges/{id}": {
+      "get": {
+        "summary": "Obtenir un congé par ID",
+        "description": "Récupère un congé en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du congé à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Conge"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un congé",
+        "description": "Met à jour un congé existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du congé à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "conge",
+            "in": "body",
+            "description": "Données mises à jour du congé",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Conge"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Congé mis à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un congé",
+        "description": "Supprime un congé existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du congé à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Congé supprimé avec succès"
+          }
+        }
+      }
+    },
+    "/api/docs": {
+      "get": {
+        "summary": "Obtenir tous les documents",
+        "description": "Renvoie une liste de tous les documents",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Doc"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau document",
+        "description": "Crée un nouveau document",
+        "parameters": [
+          {
+            "name": "doc",
+            "in": "body",
+            "description": "Nouveau document à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Doc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document créé avec succès"
+          }
+        }
+      }
+    },
+    "/api/docs/{id}": {
+      "get": {
+        "summary": "Obtenir un document par ID",
+        "description": "Récupère un document en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du document à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Doc"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un document",
+        "description": "Met à jour un document existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du document à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "doc",
+            "in": "body",
+            "description": "Données mises à jour du document",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Doc"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document mis à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un document",
+        "description": "Supprime un document existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du document à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document supprimé avec succès"
+          }
+        }
+      }
+    },
+    "/api/taches": {
+      "get": {
+        "summary": "Obtenir toutes les tâches",
+        "description": "Renvoie une liste de toutes les tâches",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tache"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer une nouvelle tâche",
+        "description": "Crée une nouvelle tâche",
+        "parameters": [
+          {
+            "name": "tache",
+            "in": "body",
+            "description": "Nouvelle tâche à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Tache"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tâche créée avec succès"
+          }
+        }
+      }
+    },
+    "/api/taches/{id}": {
+      "get": {
+        "summary": "Obtenir une tâche par ID",
+        "description": "Récupère une tâche en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la tâche à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Tache"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour une tâche",
+        "description": "Met à jour une tâche existante en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la tâche à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tache",
+            "in": "body",
+            "description": "Données mises à jour de la tâche",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Tache"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tâche mise à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer une tâche",
+        "description": "Supprime une tâche existante en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de la tâche à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tâche supprimée avec succès"
+          }
+        }
+      }
+    },
+    "/api/teams": {
+      "get": {
+        "summary": "Obtenir toutes les équipes",
+        "description": "Renvoie une liste de toutes les équipes",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Team"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer une nouvelle équipe",
+        "description": "Crée une nouvelle équipe",
+        "parameters": [
+          {
+            "name": "team",
+            "in": "body",
+            "description": "Nouvelle équipe à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Équipe créée avec succès"
+          }
+        }
+      }
+    },
+    "/api/teams/{id}": {
+      "get": {
+        "summary": "Obtenir une équipe par ID",
+        "description": "Récupère une équipe en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'équipe à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour une équipe",
+        "description": "Met à jour une équipe existante en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'équipe à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "team",
+            "in": "body",
+            "description": "Données mises à jour de l'équipe",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Team"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Équipe mise à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer une équipe",
+        "description": "Supprime une équipe existante en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'équipe à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Équipe supprimée avec succès"
+          }
+        }
+      }
+    },
+    "/api/projects": {
+      "get": {
+        "summary": "Obtenir tous les projets",
+        "description": "Renvoie une liste de tous les projets",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Project"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau projet",
+        "description": "Crée un nouveau projet",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "body",
+            "description": "Nouveau projet à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projet créé avec succès"
+          }
+        }
+      }
+    },
+    "/api/projects/{id}": {
+      "get": {
+        "summary": "Obtenir un projet par ID",
+        "description": "Récupère un projet en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du projet à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un projet",
+        "description": "Met à jour un projet existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du projet à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "project",
+            "in": "body",
+            "description": "Données mises à jour du projet",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Project"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projet mis à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un projet",
+        "description": "Supprime un projet existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du projet à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projet supprimé avec succès"
+          }
+        }
+      }
+    },
+    "/api/teletravails": {
+      "get": {
+        "summary": "Obtenir tous les télétravails",
+        "description": "Renvoie une liste de tous les télétravails",
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Teletravail"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau télétravail",
+        "description": "Crée un nouveau télétravail",
+        "parameters": [
+          {
+            "name": "teletravail",
+            "in": "body",
+            "description": "Nouveau télétravail à créer",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Teletravail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Télétravail créé avec succès"
+          }
+        }
+      }
+    },
+    "/api/teletravails/{id}": {
+      "get": {
+        "summary": "Obtenir un télétravail par ID",
+        "description": "Récupère un télétravail en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du télétravail à récupérer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réussie",
+            "schema": {
+              "$ref": "#/definitions/Teletravail"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un télétravail",
+        "description": "Met à jour un télétravail existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du télétravail à mettre à jour",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "teletravail",
+            "in": "body",
+            "description": "Données mises à jour du télétravail",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Teletravail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Télétravail mis à jour avec succès"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un télétravail",
+        "description": "Supprime un télétravail existant en fonction de son ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID du télétravail à supprimer",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Télétravail supprimé avec succès"
+          }
+        }
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "Role_Name": {
+            "type": "string"
+          }
+        }
+      },
+      "Annonce": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Content": {
+            "type": "string"
+          },
+          "pic": {
+            "type": "string"
+          }
+        }
+      },
+      "Conge": {
+        "type": "object",
+        "properties": {
+          "StartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "EndDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "Status": {
+            "type": "string"
+          },
+          "File": {
+            "type": "string"
+          }
+        }
+      },
+      "Doc": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Type": {
+            "type": "string"
+          },
+          "Path": {
+            "type": "string"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "StartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "EndDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "Status": {
+            "type": "string"
+          }
+        }
+      },
+      "Tache": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Status": {
+            "type": "string"
+          },
+          "Priority": {
+            "type": "number"
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Membres": {
+            "type": "string"
+          }
+        }
+      },
+      "Teletravail": {
+        "type": "object",
+        "properties": {
+          "StartDate": {
+            "type": "date"
+          },
+          "EndDate": {
+            "type": "date"
+          },
+          "Status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
