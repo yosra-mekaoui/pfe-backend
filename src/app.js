@@ -1,6 +1,8 @@
 import express from 'express';
 import router from './router';
 const mongo = require('mongoose');
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './api-doc/swagger.json';
 
 import environment from './config/environment';
 import Project from './app/models/project';
@@ -18,6 +20,7 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.setRoutes();
+    this.setupSwagger();
   }
 
   setRoutes() {
@@ -46,6 +49,11 @@ class App {
       .catch(() => {
         console.info('ERROR : unable to connect to database ');
       });
+  }
+
+  setupSwagger() {
+    // Configurez Swagger UI pour servir la documentation Swagger à partir du fichier JSON
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 
   async listen() {
