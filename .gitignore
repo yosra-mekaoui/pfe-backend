@@ -1,4 +1,7 @@
 /node_modules
 /build
 /dist
+/coverage
+/mochawesome-report
+/.nyc_output
 .env

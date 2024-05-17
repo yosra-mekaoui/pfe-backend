@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { v1Routes } from '../app/controllers';
-import upload from '../app/middlewares/upload';
+import upload from '../app/middlewares/uploadMiddleware';
+import { excelUpload, excelMultiUpload, multiUpload } from '../app/middlewares/uploadValidation';
 // import { createDocValidations } from '../app/validations';
 
 const validations = require('../app/validations/index');
@@ -11,12 +12,22 @@ const apiRoutes = Router();
 apiRoutes.post('/upload', upload.single('file'), (req, res) => {
   res.json({ message: 'File uploaded successfully!' });
 });
+apiRoutes.post('/upload/excel/single', excelUpload, (req, res) => {
+  res.json({ message: 'Fichier Excel téléchargé avec succès' });
+});
+apiRoutes.post('/upload/excel/multi', excelMultiUpload, (req, res) => {
+  res.json({ message: 'Fichiers Excel téléchargés avec succès' });
+});
+apiRoutes.post('/upload/multi', multiUpload, (req, res) => {
+  res.json({ message: 'Fichiers téléchargés avec succès' });
+});
 //user
 apiRoutes.get('/users', v1Routes.users.getUsers);
 apiRoutes.get('/users/:id', [validations.getUserByIdValidations], v1Routes.users.getUserById);
 apiRoutes.post('/users', [validations.createUsersValidations], v1Routes.users.createUser);
 apiRoutes.put('/users/:id', [validations.updateUserValidations], v1Routes.users.updateUser);
 apiRoutes.delete('/users/:id', [validations.getUserByIdValidations], v1Routes.users.deleteUser);
+apiRoutes.get('/users/:email', v1Routes.users.getUserByEmail);
 //role
 apiRoutes.get('/roles', v1Routes.roles.getRoles);
 apiRoutes.get('/roles/:id', [validations.getRoleByIdValidations], v1Routes.roles.getRoleById);
