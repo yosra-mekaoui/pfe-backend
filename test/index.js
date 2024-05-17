@@ -4,8 +4,8 @@ const dbConfig = require('../src/config/dbConfig');
 async function cleanTestDatabase() {
   try {
     // Connexion à la base de données de test
-    await mongo.connect(`mongodb://${dbConfig.test.DB_TEST_HOST}/${dbConfig.test.DB_TEST_NAME}`, {
-      useNewUrlParser: true,
+    await mongo.connect(`mongodb://${dbConfig.test.DB_HOST}/${dbConfig.test.DB_NAME}`, {
+      // useNewUrlParser: true,
     });
 
     // Nettoyage des collections de test
