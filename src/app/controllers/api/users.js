@@ -19,6 +19,30 @@ const getUserById = async (req, res) => {
 
   return res.status(200).json(user);
 };
+//get user by email
+// const getUserByEmail = async (req, res) => {
+//   const email = req.params.email;
+//   try {
+//     const user = await UserModel.findOne({ email: email });
+//       if (!user) {
+//     return res.status(404).json({ message: 'User not found' });
+//   }
+//   res.json(user);
+// } catch (err) {
+//     console.error(err);
+//      res.status(500).json({ message: 'Error Fetching User' });
+//   }
+// }
+const getUserByEmail = async (req, res) => {
+  try {
+    // const data = await UserModel.find({ email: req.params.email });
+    console.info('req.params.email', req.params);
+    res.send(4);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: 'Error Fetching User' });
+  }
+};
 const createUser = async (req, res) => {
   const { firstName, lastName, email } = req.body;
   if (!firstName || !lastName || !email) {
@@ -71,4 +95,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { createUser, getUsers, updateUser, deleteUser, getUserById };
+export { createUser, getUsers, updateUser, deleteUser, getUserById, getUserByEmail };
