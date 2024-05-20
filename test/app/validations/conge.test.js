@@ -3,6 +3,7 @@ const { describe, it } = require('mocha');
 const {  getCongeByIdValidations } = require('../../../src/app/validations/conge.validations');
 
 describe('Conge Validations', () => {
+<<<<<<< Updated upstream
     // describe('createCongeValidations', () => {
     //     it('should successfully validate a valid congé object when all fields are provided', () => {
     //         const endDateTime = new Date();
@@ -31,6 +32,8 @@ describe('Conge Validations', () => {
     //     });
     // });
 
+=======
+>>>>>>> Stashed changes
     describe('getCongeByIdValidations', () => {
         it('should successfully validate a valid congé ID when it is provided', () => {
             const validId = { id: '12345678' };
@@ -44,6 +47,7 @@ describe('Conge Validations', () => {
             assert.isDefined(result.error);
         });
     });
+<<<<<<< Updated upstream
 
     // describe('updateCongeValidations', () => {
     //     it('should successfully validate a valid congé update object when all fields are provided', () => {
@@ -72,4 +76,6 @@ describe('Conge Validations', () => {
     //         assert.isDefined(result.error);
     //     });
     // });
+=======
+>>>>>>> Stashed changes
 });

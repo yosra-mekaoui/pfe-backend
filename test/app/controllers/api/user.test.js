@@ -94,6 +94,9 @@ describe('Test Users', () => {
         const getUserResponse = await supertest.get(`/users/${newUser.body._id}`);
         expect(getUserResponse.statusCode).to.be.equal(404);
     });
+<<<<<<< Updated upstream
     
 
+=======
+>>>>>>> Stashed changes
 });

@@ -3,6 +3,7 @@ const { describe, it } = require('mocha');
 const {  getProjectByIdValidations } = require('../../../src/app/validations/project.validations');
 
 describe('Project Validations', () => {
+<<<<<<< Updated upstream
     // describe('createProjectValidations', () => {
     //     it('should validate a valid project object when all fields are provided correctly', () => {
     //         const validProject = {
@@ -29,6 +30,8 @@ describe('Project Validations', () => {
     //     });
     // });
 
+=======
+>>>>>>> Stashed changes
     describe('getProjectByIdValidations', () => {
         it('should validate a valid project ID when it is provided', () => {
             const validId = { id: '12345678' };
@@ -42,6 +45,7 @@ describe('Project Validations', () => {
             assert.isDefined(result.error);
         });
     });
+<<<<<<< Updated upstream
 
     // describe('updateProjectValidations', () => {
     //     it('should validate a valid project update when all fields are provided correctly', () => {
@@ -71,4 +75,6 @@ describe('Project Validations', () => {
     //         assert.isDefined(result.error);
     //     });
     // });
+=======
+>>>>>>> Stashed changes
 });

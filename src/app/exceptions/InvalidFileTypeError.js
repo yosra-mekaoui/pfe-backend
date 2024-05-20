@@ -1,7 +1,7 @@
-import BaseException from './baseException';
+const exceptionMessages = require('../constants/exceptionMessages');
 class InvalidFileTypeError extends BaseException {
-  constructor(message) {
-    super(message);
+  constructor() {
+    super(exceptionMessages.INVALID_FILE_TYPE);
     this.name = 'InvalidFileTypeError';
     this.statusCode = 400;
   }
