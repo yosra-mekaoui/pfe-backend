@@ -1,6 +1,5 @@
 import express from 'express';
 import router from './router';
-const mongo = require('mongoose');
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './api-doc/swagger.json';
