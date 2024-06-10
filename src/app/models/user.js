@@ -1,3 +1,5 @@
+import { Timestamp } from 'mongodb';
+
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
@@ -14,6 +16,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     lowercase: true,
+  },
+  password: {
+    type: String,
+    required: true,
   },
 });
 

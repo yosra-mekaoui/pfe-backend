@@ -28,6 +28,9 @@ apiRoutes.post('/users', [validations.createUsersValidations], v1Routes.users.cr
 apiRoutes.put('/users/:id', [validations.updateUserValidations], v1Routes.users.updateUser);
 apiRoutes.delete('/users/:id', [validations.getUserByIdValidations], v1Routes.users.deleteUser);
 apiRoutes.get('/users/:email', v1Routes.users.getUserByEmail);
+apiRoutes.post('/register', v1Routes.users.register);
+apiRoutes.post('/login', v1Routes.users.login);
+apiRoutes.post('/token', v1Routes.users.refreshToken);
 //role
 apiRoutes.get('/roles', v1Routes.roles.getRoles);
 apiRoutes.get('/roles/:id', [validations.getRoleByIdValidations], v1Routes.roles.getRoleById);
