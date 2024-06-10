@@ -34,11 +34,10 @@
   },
   "overrides": [
     {
-      "files": ["*.test*.js", "./coverage", "./mochawesome-report", "./node_modules"],
+      "files": ["*.test*.js"],
       "rules": {
         "jest/valid-expect": 0
       }
     }
-  ],
-  "ignorePatterns": ["node_modules/", "coverage/", "mochawesome-report/"]
+  ]
 }
