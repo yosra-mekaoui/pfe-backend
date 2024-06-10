@@ -1,5 +1,6 @@
 import UserModel from '../../models/user';
-
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const getUsers = async (req, res) => {
   try {
     const users = await UserModel.find();
@@ -94,5 +95,69 @@ const deleteUser = async (req, res) => {
     return res.status(500).json({ message: 'Error Deleting User' });
   }
 };
+// Register
+const register = async (req, res) => {
+  const { firstName, lastName, email, password } = req.body;
+  if (!firstName || !lastName || !email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+  try {
+    let user = await UserModel.findOne({ email });
+    if (user) {
+      return res.status(400).json({ msg: 'User already exists' });
+    }
+    user = new UserModel({ firstName, lastName, email, password });
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+    await user.save();
 
-export { createUser, getUsers, updateUser, deleteUser, getUserById, getUserByEmail };
+    const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+
+    res.json({ accessToken, refreshToken });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Error Creating User' });
+  }
+};
+
+// Login
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+  try {
+    let user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid Credentials' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid Credentials' });
+    }
+
+    const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+
+    res.json({ accessToken, refreshToken });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Error Logging In' });
+  }
+};
+
+// Refresh Token
+const refreshToken = (req, res) => {
+  const { token } = req.body;
+  if (!token) {
+    return res.sendStatus(401);
+  }
+  jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+    res.json({ accessToken });
+  });
+};
+
+export { createUser, getUsers, updateUser, deleteUser, getUserById, getUserByEmail, register, login, refreshToken };

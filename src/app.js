@@ -8,13 +8,16 @@ import dbConfig from './config/dbConfig';
 import Database from './database/database';
 import chalk from 'chalk';
 import logger from './utils/logger';
-logger.info('Application started.');
-logger.debug('A warning logggg');
-
+import cors from 'cors';
 class App {
+  corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+  };
   constructor() {
     this.app = express();
     this.app.use(express.json());
+    this.app.use(cors(this.corsOptions));
     this.app.use(express.urlencoded({ extended: true }));
     this.setupLogger();
     this.setRoutes();
