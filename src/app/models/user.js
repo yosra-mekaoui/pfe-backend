@@ -1,5 +1,3 @@
-import { Timestamp } from 'mongodb';
-
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({

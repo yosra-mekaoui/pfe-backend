@@ -1812,3 +1812,13 @@ undefined
   level: 'error',
   timestamp: '2024-06-10T09:48:58.114Z'
 }
+{
+  message: 'An error log',
+  level: 'error',
+  timestamp: '2024-06-10T09:54:59.806Z'
+}
+{
+  message: 'An error log',
+  level: 'error',
+  timestamp: '2024-06-10T09:56:30.406Z'
+}
