@@ -1,16 +1,12 @@
 import { Router } from 'express';
 import xlsx from 'xlsx';
-import path from 'path';
-import fs from 'fs';
 import { v1Routes } from '../app/controllers';
 import upload from '../app/middlewares/uploadMiddleware';
 import { excelUpload, excelMultiUpload, multiUpload } from '../app/middlewares/uploadValidation';
 import validateExcelData from '../utils/validateExcelData';
 import insertDataToDB from '../utils/insertDataToDB';
 import checkRequiredColumns from '../utils/checkRequiredColumns';
-import DataModel from '../app/models/dataModel';
 // import { createDocValidations } from '../app/validations';
-const multer = require('multer');
 const validations = require('../app/validations/index');
 
 const apiRoutes = Router();
