@@ -1,9 +1,16 @@
 import { Router } from 'express';
+import xlsx from 'xlsx';
+import path from 'path';
+import fs from 'fs';
 import { v1Routes } from '../app/controllers';
 import upload from '../app/middlewares/uploadMiddleware';
 import { excelUpload, excelMultiUpload, multiUpload } from '../app/middlewares/uploadValidation';
+import validateExcelData from '../utils/validateExcelData';
+import insertDataToDB from '../utils/insertDataToDB';
+import checkRequiredColumns from '../utils/checkRequiredColumns';
+import DataModel from '../app/models/dataModel';
 // import { createDocValidations } from '../app/validations';
-
+const multer = require('multer');
 const validations = require('../app/validations/index');
 
 const apiRoutes = Router();
@@ -12,9 +19,43 @@ const apiRoutes = Router();
 apiRoutes.post('/upload', upload.single('file'), (req, res) => {
   res.json({ message: 'File uploaded successfully!' });
 });
-apiRoutes.post('/upload/excel/single', excelUpload, (req, res) => {
-  res.json({ message: 'Fichier Excel téléchargé avec succès' });
+apiRoutes.post('/upload/excel/single', excelUpload, async (req, res) => {
+  try {
+    const filePath = req.file.path;
+    const workbook = xlsx.readFile(filePath);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    //Définir les colonnes requises
+    const requiredColumns = ['firstName', 'lastName', 'email', 'password'];
+
+    // Vérifier les colonnes requises
+    const missingColumns = checkRequiredColumns(sheet, requiredColumns);
+    if (missingColumns.length > 0) {
+      return res.status(400).json({ error: `Les colonnes suivantes sont manquantes : ${missingColumns.join(', ')}` });
+    }
+    const jsonData = xlsx.utils.sheet_to_json(sheet);
+
+    console.info('Données JSON obtenues du fichier Excel:', jsonData);
+
+    // Valider les données du fichier Excel
+    const schema = require('../../schema/schema.json'); // Charger votre schéma JSON
+    const validationResult = validateExcelData(jsonData, schema);
+
+    if (!validationResult.isValid) {
+      console.error('Erreurs de validation:', validationResult.errors);
+      return res.status(400).json({ errors: validationResult.errors });
+    }
+
+    // Insérer les données dans la base de données
+    await insertDataToDB(jsonData);
+
+    res.json({ message: 'Fichier Excel téléchargé et les données insérées avec succès' });
+  } catch (error) {
+    console.error('Erreur lors du traitement du fichier:', error);
+    res.status(500).json({ error: error.message });
+  }
 });
+
 apiRoutes.post('/upload/excel/multi', excelMultiUpload, (req, res) => {
   res.json({ message: 'Fichiers Excel téléchargés avec succès' });
 });
