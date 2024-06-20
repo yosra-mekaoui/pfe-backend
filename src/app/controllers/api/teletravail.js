@@ -19,12 +19,12 @@ const getTeletravailById = async (req, res) => {
   return res.status(200).json(teletravail);
 };
 const createTeletravail = async (req, res) => {
-  const { StartDate, EndDate, Type, Status } = req.body;
-  if (!StartDate || !EndDate || !Type || !Status) {
+  const { StartDate, EndDate, Reason } = req.body;
+  if (!StartDate || !EndDate || !Reason) {
     return res.status(400).json({ message: 'All fields are required' });
   }
   try {
-    const result = await TeletravailModel.create({ StartDate, EndDate, Type, Status });
+    const result = await TeletravailModel.create({ StartDate, EndDate, Reason });
     return res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -32,7 +32,7 @@ const createTeletravail = async (req, res) => {
   }
 };
 const updateTeletravail = async (req, res) => {
-  const { StartDate, EndDate, Type, Status } = req.body;
+  const { StartDate, EndDate, Reason } = req.body;
   const { id } = req.params;
   const teletravail = await TeletravailModel.findById(id);
   if (!teletravail) {
@@ -44,11 +44,8 @@ const updateTeletravail = async (req, res) => {
   if (EndDate) {
     teletravail.EndDate = EndDate;
   }
-  if (Type) {
-    teletravail.Type = Type;
-  }
-  if (Status) {
-    teletravail.Status = Status;
+  if (Reason) {
+    teletravail.Reason = Reason;
   }
   try {
     const result = await teletravail.save();
