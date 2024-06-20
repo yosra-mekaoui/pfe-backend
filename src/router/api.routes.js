@@ -3,6 +3,7 @@ import xlsx from 'xlsx';
 import { v1Routes } from '../app/controllers';
 import upload from '../app/middlewares/uploadMiddleware';
 import { excelUpload, excelMultiUpload, multiUpload } from '../app/middlewares/uploadValidation';
+import { roleMiddleware, authenticateToken } from '../app/middlewares/authMiddleware';
 import validateExcelData from '../utils/validateExcelData';
 import insertDataToDB from '../utils/insertDataToDB';
 import checkRequiredColumns from '../utils/checkRequiredColumns';
@@ -68,6 +69,9 @@ apiRoutes.get('/users/:email', v1Routes.users.getUserByEmail);
 apiRoutes.post('/register', v1Routes.users.register);
 apiRoutes.post('/login', v1Routes.users.login);
 apiRoutes.post('/token', v1Routes.users.refreshToken);
+apiRoutes.get('/manager-route', authenticateToken, roleMiddleware('Manager'), (req, res) => {
+  res.send('This is a manager-only route.');
+});
 //role
 apiRoutes.get('/roles', v1Routes.roles.getRoles);
 apiRoutes.get('/roles/:id', [validations.getRoleByIdValidations], v1Routes.roles.getRoleById);

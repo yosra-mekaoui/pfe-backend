@@ -1,4 +1,5 @@
 import UserModel from '../../models/user';
+import RoleModel from '../../models/role';
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getUsers = async (req, res) => {
@@ -58,7 +59,7 @@ const createUser = async (req, res) => {
   }
 };
 const updateUser = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, role } = req.body;
   const { id } = req.params;
   const user = await UserModel.findById(id);
   if (!user) {
@@ -75,6 +76,9 @@ const updateUser = async (req, res) => {
   }
   if (password) {
     user.password = password;
+  }
+  if (role) {
+    user.role = role;
   }
   try {
     const result = await user.save();
@@ -100,8 +104,8 @@ const deleteUser = async (req, res) => {
 };
 // Register
 const register = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-  if (!firstName || !lastName || !email || !password) {
+  const { firstName, lastName, email, password, roleName } = req.body;
+  if (!firstName || !lastName || !email || !password || !roleName) {
     return res.status(400).json({ message: 'All fields are required' });
   }
   try {
@@ -109,7 +113,12 @@ const register = async (req, res) => {
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
-    user = new UserModel({ firstName, lastName, email, password });
+    // Trouver le rôle par son nom
+    const role = await RoleModel.findOne({ Role_Name: roleName });
+    if (!role) {
+      return res.status(400).json({ msg: 'Role does not exist' });
+    }
+    user = new UserModel({ firstName, lastName, email, password, role: role._id });
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
