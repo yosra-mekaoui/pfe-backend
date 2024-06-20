@@ -50,7 +50,7 @@ const createUser = async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
   try {
-    const result = await UserModel.create({ firstName, lastName, email });
+    const result = await UserModel.create({ firstName, lastName, email, password });
     return res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -58,7 +58,7 @@ const createUser = async (req, res) => {
   }
 };
 const updateUser = async (req, res) => {
-  const { firstName, lastName, email } = req.body;
+  const { firstName, lastName, email, password } = req.body;
   const { id } = req.params;
   const user = await UserModel.findById(id);
   if (!user) {
@@ -72,6 +72,9 @@ const updateUser = async (req, res) => {
   }
   if (email) {
     user.email = email;
+  }
+  if (password) {
+    user.password = password;
   }
   try {
     const result = await user.save();

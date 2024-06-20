@@ -2402,3 +2402,23 @@ undefined
   level: 'error',
   timestamp: '2024-06-12T14:31:02.590Z'
 }
+{
+  message: 'An error log',
+  level: 'error',
+  timestamp: '2024-06-12T15:45:09.621Z'
+}
+{
+  message: 'An error log',
+  level: 'error',
+  timestamp: '2024-06-13T09:50:31.887Z'
+}
+{
+  message: 'An error log',
+  level: 'error',
+  timestamp: '2024-06-13T14:09:27.751Z'
+}
+{
+  message: 'An error log',
+  level: 'error',
+  timestamp: '2024-06-19T09:38:18.565Z'
+}
