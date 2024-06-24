@@ -7,6 +7,7 @@ import { roleMiddleware, authenticateToken } from '../app/middlewares/authMiddle
 import validateExcelData from '../utils/validateExcelData';
 import insertDataToDB from '../utils/insertDataToDB';
 import checkRequiredColumns from '../utils/checkRequiredColumns';
+import uploadC from '../app/middlewares/multerConfigConge';
 // import { createDocValidations } from '../app/validations';
 const validations = require('../app/validations/index');
 
@@ -94,8 +95,8 @@ apiRoutes.delete('/docs/:id', [validations.getDocByIdValidations], v1Routes.docs
 //conge
 apiRoutes.get('/conges', v1Routes.conges.getConges);
 apiRoutes.get('/conges/:id', [validations.getCongeByIdValidations], v1Routes.conges.getCongeById);
-apiRoutes.post('/conges', [validations.createCongeValidations], v1Routes.conges.createConge);
-apiRoutes.put('/conges/:id', [validations.updateCongeValidations], v1Routes.conges.updateConge);
+apiRoutes.post('/conges', uploadC.single('File'), [validations.createCongeValidations], v1Routes.conges.createConge);
+apiRoutes.put('/conges/:id', uploadC.single('File'), [validations.updateCongeValidations], v1Routes.conges.updateConge);
 apiRoutes.delete('/conges/:id', [validations.getCongeByIdValidations], v1Routes.conges.deleteConge);
 //project
 apiRoutes.get('/projects', v1Routes.projects.getProjects);
