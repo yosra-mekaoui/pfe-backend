@@ -1,5 +1,4 @@
 import CongeModel from '../../models/conge';
-import upload from '../../middlewares/multerConfigConge';
 
 const getConges = async (req, res) => {
   try {
