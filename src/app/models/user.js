@@ -26,6 +26,11 @@ const userSchema = new Schema({
     required: true,
   },
 });
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+  user.role = user.role.Role_Name; // Populate role with Role_Name string
+  return user;
+};
 
 const User = mongoose.model('User', userSchema);
 

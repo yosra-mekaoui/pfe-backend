@@ -39,5 +39,26 @@ const roleMiddleware = (requiredRole) => (req, res, next) => {
   }
   next();
 };
+const authMiddleware = async (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) return res.status(401).json({ error: 'Authorization header missing' });
 
-module.exports = { authenticateToken, authenticateRefreshToken, roleMiddleware };
+  const token = authHeader.split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Token missing' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const user = await User.findById(decoded.id); // Récupération de l'utilisateur à partir du token
+
+    if (!user) return res.status(401).json({ error: 'User not authenticated' });
+
+    req.user = user; // Définition de req.user pour l'utilisateur authentifié
+    req.userId = user._id; // Définition de req.userId avec l'ID de l'utilisateur
+
+    next();
+  } catch (err) {
+    console.error('JWT Verify Error:', err);
+    return res.status(403).json({ error: 'Invalid token' });
+  }
+};
+module.exports = { authenticateToken, authenticateRefreshToken, roleMiddleware, authMiddleware };

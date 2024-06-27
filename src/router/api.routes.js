@@ -3,7 +3,7 @@ import xlsx from 'xlsx';
 import { v1Routes } from '../app/controllers';
 import upload from '../app/middlewares/uploadMiddleware';
 import { excelUpload, excelMultiUpload, multiUpload } from '../app/middlewares/uploadValidation';
-import { roleMiddleware, authenticateToken } from '../app/middlewares/authMiddleware';
+import { roleMiddleware, authenticateToken, authMiddleware } from '../app/middlewares/authMiddleware';
 import validateExcelData from '../utils/validateExcelData';
 import insertDataToDB from '../utils/insertDataToDB';
 import checkRequiredColumns from '../utils/checkRequiredColumns';
@@ -73,6 +73,12 @@ apiRoutes.post('/token', v1Routes.users.refreshToken);
 apiRoutes.get('/manager-route', authenticateToken, roleMiddleware('Manager'), (req, res) => {
   res.send('This is a manager-only route.');
 });
+apiRoutes.get('/staff-route', authenticateToken, roleMiddleware('Staff'), (req, res) => {
+  res.send('This is a staff-only route.');
+});
+apiRoutes.get('/rh-route', authenticateToken, roleMiddleware('RH'), (req, res) => {
+  res.send('This is an RH-only route.');
+});
 //role
 apiRoutes.get('/roles', v1Routes.roles.getRoles);
 apiRoutes.get('/roles/:id', [validations.getRoleByIdValidations], v1Routes.roles.getRoleById);
@@ -93,11 +99,13 @@ apiRoutes.post('/docs', [validations.createDocValidations], v1Routes.docs.create
 apiRoutes.put('/docs/:id', [validations.updateDocValidations], v1Routes.docs.updateDoc);
 apiRoutes.delete('/docs/:id', [validations.getDocByIdValidations], v1Routes.docs.deleteDoc);
 //conge
-apiRoutes.get('/conges', v1Routes.conges.getConges);
-apiRoutes.get('/conges/:id', [validations.getCongeByIdValidations], v1Routes.conges.getCongeById);
-apiRoutes.post('/conges', uploadC.single('File'), [validations.createCongeValidations], v1Routes.conges.createConge);
-apiRoutes.put('/conges/:id', uploadC.single('File'), [validations.updateCongeValidations], v1Routes.conges.updateConge);
-apiRoutes.delete('/conges/:id', [validations.getCongeByIdValidations], v1Routes.conges.deleteConge);
+apiRoutes.get('/conges', authMiddleware, v1Routes.conges.getConges);
+apiRoutes.get('/conges/:id', authMiddleware, v1Routes.conges.getCongeById);
+apiRoutes.post('/conges', uploadC.single('File'), authMiddleware, v1Routes.conges.createConge);
+apiRoutes.put('/conges/:id', uploadC.single('File'), authMiddleware, v1Routes.conges.updateConge);
+apiRoutes.delete('/conges/:id', authMiddleware, v1Routes.conges.deleteConge);
+apiRoutes.put('/conges/status/:id', authMiddleware, v1Routes.conges.updateCongeStatus);
+apiRoutes.get('/conges/user/:userId', authMiddleware, v1Routes.conges.getCongesByUserId);
 //project
 apiRoutes.get('/projects', v1Routes.projects.getProjects);
 apiRoutes.get('/projects/:id', [validations.getProjectByIdValidations], v1Routes.projects.getProjectById);

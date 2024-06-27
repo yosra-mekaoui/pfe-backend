@@ -140,7 +140,7 @@ const login = async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
   try {
-    let user = await UserModel.findOne({ email });
+    let user = await UserModel.findOne({ email }).populate('role');
     if (!user) {
       return res.status(400).json({ message: 'Invalid Credentials' });
     }
@@ -151,8 +151,16 @@ const login = async (req, res) => {
 
     const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
     const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+    const response = {
+      accessToken,
+      refreshToken,
+      user: {
+        firstName: user.firstName,
+        role: user.role ? user.role.Role_Name : 'Unkown',
+      },
+    };
 
-    res.json({ accessToken, refreshToken });
+    res.json(response);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: 'Error Logging In' });

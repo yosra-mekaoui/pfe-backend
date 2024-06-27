@@ -24,6 +24,7 @@ const congeSchema = new Schema({
     type: String,
     required: false,
   },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Add userId field
 });
 
 const Conge = mongoose.model('Conge', congeSchema);
