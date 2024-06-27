@@ -9,7 +9,7 @@ const excelUpload = multer({
     const fileExtension = '.' + file.originalname.split('.').pop();
 
     // Définir les extensions autorisées pour les fichiers Excel
-    const allowedExtensions = ['.xlsx', '.xlsm', '.xlsb', '.xltx', 'svg'];
+    const allowedExtensions = ['.xlsx', '.xlsm', '.xlsb', '.xltx'];
 
     // Vérifier si le fichier a l'une des extensions autorisées
     if (allowedExtensions.includes(fileExtension)) {

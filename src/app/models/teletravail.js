@@ -9,9 +9,14 @@ const teletravailSchema = new Schema({
     type: Date,
     required: true,
   },
+  Reason: {
+    type: String,
+    required: true,
+  },
   Status: {
     type: String,
     required: true,
+    default: 'Pending',
   },
 });
 

@@ -1,7 +1,7 @@
 const joi = require('joi');
 
 const createRoleValidations = joi.object({
-  Role_Name: joi.string().required().min(3).max(15),
+  Role_Name: joi.string().required().min(2).max(15),
 });
 
 const getRoleByIdValidations = joi.object({
@@ -10,7 +10,7 @@ const getRoleByIdValidations = joi.object({
 
 const updateRoleValidations = joi.object({
   id: joi.string().required(),
-  Role_Name: joi.string().required().min(3).max(15),
+  Role_Name: joi.string().required().min(2).max(15),
 });
 
 module.exports = {

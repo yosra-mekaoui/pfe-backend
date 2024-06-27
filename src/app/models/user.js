@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
@@ -19,8 +20,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: Schema.Types.ObjectId,
+    ref: 'Role',
+    required: true,
+  },
 });
+userSchema.methods.toJSON = function () {
+  const user = this.toObject();
+  user.role = user.role.Role_Name; // Populate role with Role_Name string
+  return user;
+};
 
 const User = mongoose.model('User', userSchema);
 
-export default User;
+module.exports = User;
